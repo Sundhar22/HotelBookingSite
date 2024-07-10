@@ -1,0 +1,18 @@
+import { RegisterType } from "./pages/register";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL as string;
+
+export const register = async (data: RegisterType) => {
+  const response = await fetch(`${API_BASE_URL}/api/users/register`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    throw new Error("An error occurred while registering");
+  }
+
+  return await response.json();
+};

@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
+import { check, validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
 import User from "../models/user";
-import { check, validationResult } from "express-validator";
 // creating router instance. this is responsible for handling routes from express.
 const router = express.Router();
 
@@ -12,19 +12,20 @@ router.post(
   // checking fields in request body
   [
     check("email", "Email is required").isEmail(),
-    check("password", "password is required at-least 6 characters").isLength({min: 6}),
+    check("password", "password is required at-least 6 characters").isLength({
+      min: 6,
+    }),
     check("firstName", "firstName is required").isString(),
     check("lastName", "lastName is required").isString(),
   ],
 
   // this is call back function which will be executed when /register route is hit.
   async (req: Request, res: Response) => {
-
     // checking validation errors in request body
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({
-        message:errors.array()
+        message: errors.array(),
       });
     }
 
@@ -34,8 +35,9 @@ router.post(
 
       // checking user exists status. if true then return message along with 400 status
       if (user !== null) {
-        return res.status(400).json({ message: "User already exists. Please login." });
- 
+        return res
+          .status(400)
+          .json({ message: "User already exists. Please login." });
       }
 
       /**creating new user instance of User model
@@ -67,7 +69,7 @@ router.post(
 
       res.cookie("auth_token", token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
+        secure: false,
         maxAge: 86400000,
       });
 
