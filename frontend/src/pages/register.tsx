@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
-import { useMutation } from "react-query";
+import { QueryClient, useMutation } from "react-query";
+import { useNavigate } from "react-router-dom";
 import * as api from "../api-client";
 import { UseAppContext } from "../context/AppContext";
-import { useNavigate } from "react-router-dom";
 
 export type RegisterType = {
     firstName: string;
@@ -14,10 +14,10 @@ export type RegisterType = {
 
 
 const Register = () => {
-
+    const query = new QueryClient();
     const { register, watch, handleSubmit, formState: { errors } } = useForm<RegisterType>();
 
-    const { showToast } = UseAppContext();
+    const { showToast, isLogin } = UseAppContext();
 
     const navigate = useNavigate();
 
@@ -28,9 +28,12 @@ const Register = () => {
     )
 
     const mutation = useMutation(api.register, {
-        onSuccess: () => {
+        onSuccess: async () => {
             showToast({ message: "Account created successfully", type: "SUCCESS" });
+            await query.invalidateQueries('validateToken')
+
             navigate('/')
+            console.log(isLogin)
         },
         onError: (errors: Error) => {
             showToast({ message: errors.message, type: "ERROR" })
@@ -38,7 +41,7 @@ const Register = () => {
     });
 
     return (
-        
+
         <form className="flex flex-col gap-5 " onSubmit={onSubmit}>
             <h2 className="text-3xl font-bold">Create an Account</h2>
             <div className="flex flex-col  md:flex-row gap-5">

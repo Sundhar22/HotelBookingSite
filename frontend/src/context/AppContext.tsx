@@ -23,15 +23,16 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
 
     const [toast, setToast] = useState<ToastMessage | undefined>(undefined);
 
-    const isValid = useQuery('validateToken', apiClient.validateToken, {
+    const {isError} = useQuery('validateToken', apiClient.validateToken, {
         retry: false
     }) 
+
 
     return (
         <AppContext.Provider value={
             {
                 showToast: (toast: ToastMessage) => { setToast(toast); },
-                isLogin: !isValid,
+                isLogin: !isError,
             }
         }>
              {toast && (<Toast message={toast.message} type={toast.type} onClose={() => setToast(undefined)} />)}

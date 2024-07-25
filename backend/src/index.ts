@@ -5,6 +5,7 @@ import express from "express";
 import mongoose from "mongoose";
 import userLoginRoute from "./routes/auth";
 import userRoute from "./routes/users";
+
 mongoose
   .connect(process.env.MONGODB_CONNECTION_STRING as string)
   .then(() => console.log("Connected to MongoDB"))
