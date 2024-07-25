@@ -1,11 +1,16 @@
 {
-    "files.exclude": {
-        "**/.git": true,
-        "**/.svn": true,
-        "**/.hg": true,
-        "**/CVS": true,
-        "**/.DS_Store": true,
-        "**/Thumbs.db": true
+  "files.exclude": {},
+  "hide-files.files": [],
+  "folder-scopes.scopes": {
+    "frontend-src": {
+      "HotelBookingSite": {
+        "scopedFolderPath": "frontend"
+      }
     },
-    "hide-files.files": []
+    "backend-src": {
+      "HotelBookingSite": {
+        "scopedFolderPath": "backend/src"
+      }
+    }
+  }
 }

@@ -1,34 +1,29 @@
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import "dotenv/config";
 import express from "express";
 import mongoose from "mongoose";
 import userLoginRoute from "./routes/auth";
 import userRoute from "./routes/users";
-/**
- * connecting to mongodb database using mongoose.
- * mongoose is a ODM(Object Data Modeling) library for MongoDB and Node.js.
- * Helps to manage relationships between data, provides schema validation,
- * and is used to translate between objects in code and the representation of those objects in MongoDB
- * mongoose connecting via MONGODB_CONNECTION_STRING
- */
 mongoose
   .connect(process.env.MONGODB_CONNECTION_STRING as string)
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
-// creating express app which will be used to create api routes.
+// creating express
 const app = express();
-// setting up express app to use json and urlencoded data. it means express will parse json and urlencoded data.
+// using express.json for parsing json data which mean we can get json data from the body of the request
 app.use(express.json());
+// using urlencoded for parsing the url encoded data
+app.use(express.urlencoded({ extended: true }));
 app.use(
-  express.urlencoded({
-    extended: true,
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
   })
 );
-// setting up express app to use cors. it means cors is security feature for express app.
-app.use(cors());
+app.use(cookieParser());
 
-// setting up express app to use userRoutes. it means telling express app to use userRoutes for /api/users route.
 app.use("/api/users", userRoute);
 app.use("/api/auth", userLoginRoute);
 

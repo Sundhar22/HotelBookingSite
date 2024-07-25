@@ -8,11 +8,21 @@ export const register = async (data: RegisterType) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
+    credentials: "include",
   });
+
+  await response.json();
 
   if (!response.ok) {
     throw new Error("An error occurred while registering");
   }
-
-  return await response.json();
+};
+export const validateToken = async () => {
+  const response = await fetch(`${API_BASE_URL}/api/auth/validate-token`, {
+    credentials: "include",
+  });
+  if (!response.ok) {
+    throw new Error("Invalid token");
+  }
+  return response.json();
 };

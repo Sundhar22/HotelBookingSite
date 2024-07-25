@@ -34,7 +34,7 @@ router.post(
       let user = await User.findOne({ email: req.body.email });
 
       // checking user exists status. if true then return message along with 400 status
-      if (user !== null) {
+      if (user) {
         return res
           .status(400)
           .json({ message: "User already exists. Please login." });
@@ -69,12 +69,12 @@ router.post(
 
       res.cookie("auth_token", token, {
         httpOnly: true,
-        secure: false,
+        secure: process.env.NODE_ENV === "production",
         maxAge: 86400000,
       });
 
       // sending response with status 200
-      return res.status(200);
+      return res.status(200).send({ message: "User registered OK" });
     } catch (error) {
       console.log(error);
       // sending response with status 500 not any specific error message because mongodb can throw any valuable message.
