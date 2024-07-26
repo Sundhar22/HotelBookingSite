@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { QueryClient, useMutation } from "react-query";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as api from "../api-client";
 import { UseAppContext } from "../context/AppContext";
 
@@ -31,7 +31,6 @@ const Register = () => {
         onSuccess: async () => {
             showToast({ message: "Account created successfully", type: "SUCCESS" });
             await query.invalidateQueries('validateToken')
-
             navigate('/')
             console.log(isLogin)
         },
@@ -90,6 +89,9 @@ const Register = () => {
             </label>
             <span>
                 <button type="submit" className="bg-blue-500 text-white py-2 px-5 rounded">Register</button>
+            </span>
+            <span className="flex gap-1">
+                <p>Do You Have Account already?</p> <Link to={"/sign-in"} className="underline ">Sign in here</Link>
             </span>
         </form>
 
