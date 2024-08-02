@@ -50,7 +50,7 @@ const SignIn = () => {
                 </label>
 
                 <span className="flex gap-3 flex-row items-center ">
-                    <button className=" justify-self-center bg-white text-blue-800 rounded-md text-xl font-semibold px-4 py-2  hover:text-white hover:bg-blue-800  hover:border-white border-2 " type="submit"  >SignIn</button>
+                    <button className=" justify-self-center bg-white text-blue-800 rounded-md text-xl font-semibold px-4 py-2  hover:text-white hover:bg-blue-800  hover:border-white border-2 " type="submit"  >Sign In</button>
 
                     <p>Don't You Have Account already?</p> <Link to={"/register"} className="underline ">Register here</Link>
                 </span>

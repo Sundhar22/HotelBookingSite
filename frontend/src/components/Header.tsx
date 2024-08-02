@@ -21,10 +21,10 @@ const Header = () => {
                         isLogin ?
                             <>
                                 <Link className={style} to="/my-booking" >MyBooking</Link>
-                                <Link className={style} to="/my-hotels"> My Hotels</Link>
+                                <Link className={style} to="/my-hotels"> MyHotels</Link>
                                 <SignOutButton />
                             </>
-                            : <Link to={"/register"} className="  hover:bg-gray-200 px-5 rounded bg-white font-bold flex items-center text-blue-600">Sign In</Link>
+                            : <Link to={"/sign-in"} className="  hover:bg-gray-200 px-5 rounded bg-white font-bold flex items-center text-blue-600">Sign In</Link>
 
                     }
                 </span>
