@@ -21,4 +21,5 @@ const Layout = ({ children }: props) => {
 
 
 }
+
 export default Layout;
