@@ -28,7 +28,7 @@ test("register should allow user to register", async ({ page }) => {
   ).toBeVisible();
   await page.locator("[name=confirmPassword]").fill("password");
   await page.locator("[name=password]").fill("password");
-  await page.locator("[name=email]").fill(`testing${Math.floor(Math.random()*90000)+10000}@mg.com`);
+  await page.locator("[name=email]").fill(`testing${Math.floor(Math.random()*90000)+10000 }@mg.com`);
   await page.locator("[name=lastName]").fill("s");
   await page.locator("[name=firstName]").fill("mohanasundharam");
 

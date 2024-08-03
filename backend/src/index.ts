@@ -3,6 +3,7 @@ import cors from "cors";
 import "dotenv/config";
 import express from "express";
 import mongoose from "mongoose";
+import path from "path";
 import userLoginRoute from "./routes/auth";
 import userRoute from "./routes/users";
 
@@ -25,8 +26,10 @@ app.use(
 );
 app.use(cookieParser());
 
+app.use(express.static(path.join(__dirname, "../../frontend/dist/")));
+
 app.use("/api/users", userRoute);
 app.use("/api/auth", userLoginRoute);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT);
