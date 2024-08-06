@@ -6,6 +6,15 @@ import mongoose from "mongoose";
 import path from "path";
 import userLoginRoute from "./routes/auth";
 import userRoute from "./routes/users";
+import {v2 as cloudinary} from "cloudinary";
+import myHotelRoute from "./routes/my-Hotels";
+
+cloudinary.config({
+  cloud_name:process.env.CLOUDINARY_CLOUD_NAME,
+  api_key:process.env.CLOUDINARY_API_KEY,
+  api_secret:process.env.CLOUDINARY_API_SECRET
+})
+
 
 mongoose
   .connect(process.env.MONGODB_CONNECTION_STRING as string)
@@ -30,6 +39,7 @@ app.use(express.static(path.join(__dirname, "../../frontend/dist/")));
 
 app.use("/api/users", userRoute);
 app.use("/api/auth", userLoginRoute);
+app.use("/api/my-hotels", myHotelRoute);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.xPORT || 5000;
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
