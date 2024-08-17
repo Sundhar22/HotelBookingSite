@@ -1,7 +1,7 @@
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import "dotenv/config";
-import express from "express";
+import express, { Request, Response } from "express";
 import mongoose from "mongoose";
 import path from "path";
 import userLoginRoute from "./routes/auth";
@@ -29,7 +29,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
+    origin: [process.env.CLIENT_URL as string,"http://localhost:7000"],
     credentials: true,
   })
 );
@@ -41,5 +41,9 @@ app.use("/api/users", userRoute);
 app.use("/api/auth", userLoginRoute);
 app.use("/api/my-hotels", myHotelRoute);
 
-const PORT = process.env.xPORT || 5000;
+app.get("*",(req:Request,res:Response)=>{
+  res.sendFile(path.join(__dirname,"../../frontend/dist/index.html"))
+})
+
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

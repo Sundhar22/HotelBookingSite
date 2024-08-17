@@ -9,8 +9,8 @@ const Header = () => {
     return (
         <div className="bg-blue-800 py-6">
 
-            <div className="container flex justify-between mx-auto">
-                <span className="font-bold text-white text-3xl tracking-tight">
+            <div className="container flex justify-between mx-auto ">
+                <span className="font-bold text-white text-3xl tracking-tight ">
                     <Link to={'/'}>
                         EasyTrip.com
                     </Link>

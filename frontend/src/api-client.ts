@@ -1,6 +1,6 @@
 import { RegisterType } from "./pages/register";
 import { SignInFormData } from "./pages/SignIn";
-const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL as string) || "";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL as string || "";
 
 export const register = async (data: RegisterType) => {
   const response = await fetch(`${API_BASE_URL}/api/users/register`, {
@@ -50,5 +50,20 @@ export const signIn = async (formData: SignInFormData) => {
   if (!response.ok) {
     throw new Error("Invalid Credentials");
   }
+  return response.json();
+};
+
+export const addHotel = async (data: FormData) => {
+  const response = await fetch(`${API_BASE_URL}/api/my-hotels`, {
+    method: "POST",
+
+    credentials: "include",
+    body: data,
+  });
+
+  if (!response.ok) {
+    throw new Error("An error occurred while adding hotel");
+  }
+
   return response.json();
 };

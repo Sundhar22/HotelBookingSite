@@ -46,11 +46,12 @@ router.post(
       newHotels.userId = req.userId;
 
       const hotel = new Hotel(newHotels);
-      hotel.save();
+      await  hotel.save();
 
       res.status(201).send(hotel);
     } catch (error) {
-      console.error("error in my-hotel end point: " + error);
+      console.error("error in my-hotel end point: ");
+      console.log(error);
       res.status(500).json({ message: "Server Error" });
     }
   }
