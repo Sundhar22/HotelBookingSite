@@ -29,7 +29,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: [process.env.CLIENT_URL as string,"http://localhost:7000"],
+    origin: [process.env.CLIENT_URL as string,"http://localhost:7000","http://localhost:5000"],
     credentials: true,
   })
 );
