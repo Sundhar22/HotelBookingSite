@@ -2,33 +2,30 @@
   "version": 2,
   "builds": [
     {
-      "src": "backend/dist/index.js",
+      "src": "backend/index.js",
       "use": "@vercel/node"
     },
     {
-      "src": "frontend/dist/index.html",
-      "config": {
-        "distDir": "frontend/dist"
-      },
+      "src": "frontend/index.html",
       "use": "@vercel/static-build"
     }
   ],
   "routes": [
     {
       "src": "/api/users/(.*)",
-      "dest": "backend/dist/index.js"
+      "dest": "backend/index.js"
     },
     {
       "src": "/api/auth/(.*)",
-      "dest": "backend/dist/index.js"
+      "dest": "backend/index.js"
     },
     {
       "src": "/api/my-hotels/(.*)",
-      "dest": "backend/dist/index.js"
+      "dest": "backend/index.js"
     },
     {
       "src": "/(.*)",
-      "dest": "frontend/dist/index.html"
+      "dest": "frontend/index.html"
     }
   ]
 }
