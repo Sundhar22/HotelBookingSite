@@ -16,4 +16,8 @@
       "src": "/*",
       "dest": "frontend/index.html"
     }
-  ]}
+  ],
+  "github": {
+    "silent": true
+  }
+  }
