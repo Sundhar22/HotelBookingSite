@@ -20,9 +20,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/frontend/$1"
+      "dest": "/frontend/dist/$1"
     }
-  ],
-  
-  "ignoreCommand": "git diff --quiet HEAD^ HEAD ."
+  ]
 }
