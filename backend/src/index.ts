@@ -41,9 +41,14 @@ app.use("/api/users", userRoute);
 app.use("/api/auth", userLoginRoute);
 app.use("/api/my-hotels", myHotelRoute);
 
-app.get("*",(req:Request,res:Response)=>{
-  res.sendFile(path.join(__dirname,"../../frontend/dist/index.html"))
-})
-
+app.get("*", (req, res, next) => {
+  if (req.url.startsWith("/api")) {
+    next(); // Let the API routes handle the request
+  } else if (req.url.startsWith("/static")) {
+    next(); // Let the static file server handle the request
+  } else {
+    res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
+  }
+});
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
