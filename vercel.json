@@ -14,15 +14,15 @@
   ],
   "routes": [
     {
-      "src": "/api/users",
+      "src": "/api/users/(.*)",
       "dest": "backend/dist/index.js"
     },
     {
-      "src": "/api/auth",
+      "src": "/api/auth/(.*)",
       "dest": "backend/dist/index.js"
     },
     {
-      "src": "/api/my-hotels",
+      "src": "/api/my-hotels/(.*)",
       "dest": "backend/dist/index.js"
     },
     {
