@@ -2,20 +2,26 @@
   "version": 2,
   "builds": [
     {
-      "src": "backend/index.js",
-      "use": "@vercel/node",
-      "config": {}
+      "src": "backend/src/index.ts",
+      "use": "@vercel/static-build"
+    },
+    {
+      "src": "frontend/src/main.tsx",
+      "use": "@vercel/static-build"
     }
   ],
   "routes": [
     {
-      "src": "/api/*",
-      "dest": "backend/index.js"
+      "src": "/api/(.*)",
+      "dest": "backend/dist/index.js"
     },
     {
-      "src": "/*",
-      "dest": "frontend/index.html"
+      "src": "/static/(.*)",
+      "dest": "frontend/dist/assets/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "frontend/dist/index.html"
     }
   ]
-  
-  }
+}
