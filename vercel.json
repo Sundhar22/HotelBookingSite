@@ -1,7 +1,7 @@
 {
   "version": 2,
   "name": "HotelBookingSite",
-  "builds": [
+"builds": [
     {
       "src": "backend/src/index.ts",
       "use": "@vercel/node"
@@ -10,18 +10,18 @@
       "src": "frontend/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "./frontend/dist"
+        "distDir": "frontend/dist"
       }
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "./backend/src/index.ts"
+      "dest": "/backend/src/index.ts"
     },
     {
       "src": "/(.*)",
-      "dest": "./frontend/dist/index.html"
+      "dest": "/frontend/dist/index.html"
     }
   ],
   "buildCommand": "cd frontend && npm install && npm run build && cd ../backend && npm install && npm run build"
