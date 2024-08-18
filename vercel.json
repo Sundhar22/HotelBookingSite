@@ -9,7 +9,8 @@
       "src": "frontend/dist/index.html",
       "config": {
         "distDir": "frontend/dist"
-      }
+      },
+      "use": "@vercel/static-build"
     }
   ],
   "routes": [
