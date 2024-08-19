@@ -18,8 +18,8 @@ cloudinary.config({
 
 mongoose
   .connect(process.env.MONGODB_CONNECTION_STRING as string)
-  .then(() => console.log("Connected to DB"))
-  .catch((err) => console.error("connection error:"));
+  .then(() => console.log("Connected to DB"));
+  // .catch((err) => console.error("connection error:"));
 
 // creating express
 const app = express();
