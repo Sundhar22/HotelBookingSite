@@ -1,7 +1,7 @@
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import "dotenv/config";
-import express, { Request, Response } from "express";
+import express from "express";
 import mongoose from "mongoose";
 import path from "path";
 import userLoginRoute from "./routes/auth";
@@ -43,9 +43,9 @@ app.use("/api/my-hotels", myHotelRoute);
 
 app.get("*", (req, res, next) => {
   if (req.url.startsWith("/api")) {
-    next(); // Let the API routes handle the request
+    next();
   } else if (req.url.startsWith("/static")) {
-    next(); // Let the static file server handle the request
+    next();
   } else {
     res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
   }

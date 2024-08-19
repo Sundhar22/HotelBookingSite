@@ -39,11 +39,24 @@ test("add new hotels to the  server!", async ({ page }) => {
   await page.locator("[name=adultCount]").fill("2");
   await page.locator("[name=children]").fill("1");
 
-  await page.setInputFiles('[name=imageFiles]',[
-    path.join(__dirname, 'files','1.png'),
-    path.join(__dirname, 'files','2.png')
-  ])
-  await page.getByRole("button",{name:"save"}).click();
+  await page.setInputFiles("[name=imageFiles]", [
+    path.join(__dirname, "files", "1.png"),
+    path.join(__dirname, "files", "2.png"),
+  ]);
+  await page.getByRole("button", { name: "save" }).click();
 
-  await expect(page.getByText("Hotel added successfully")).toBeVisible({ timeout: 10000 });
+  await expect(page.getByText("Hotel added successfully")).toBeVisible({
+    timeout: 10000,
+  });
+});
+
+test("check the added hotel in the my hotels page", async ({ page }) => {
+  await page.goto(`${UI_URL}/my-hotels`);
+
+  await expect(page.getByText("Add Hotel")).toBeVisible();
+
+  await expect(page.getByText("Test Hotel")).toBeVisible();
+
+  await expect(page.getByText("Test description of the hotel")).toBeVisible();
+  await expect(page.getByText(" City: Test city Country: Test country Adults: 2 Children: 1 Price: 100 Rating: 5")).toBeVisible();
 });

@@ -4,6 +4,7 @@ import multer from "multer";
 import verifyToken from "../middleware/auth";
 import Hotel, { HotelType } from "../models/HotelType";
 import { body } from "express-validator";
+import mongoose from "mongoose";
 const router = express.Router();
 
 const storage = multer.memoryStorage();
@@ -56,5 +57,20 @@ router.post(
     }
   }
 );
+
+router.get('/',verifyToken,async(req:Request,res:Response)=>{
+
+  try {
+    const response = await Hotel.find({userId:req.userId});
+
+    res.status(200).send(response)
+  } catch (error) {
+    if (error instanceof mongoose.Error.CastError) {
+      res.status(404).send({ message: 'Hotel not found' });
+    } else {
+      res.status(500).send({ message: 'Internal Server Error' });
+    }
+  }
+});
 
 export default router;
