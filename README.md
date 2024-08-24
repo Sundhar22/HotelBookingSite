@@ -11,19 +11,19 @@ Features
 
 Tech Stack
 
-   ** Frontend: HTML, CSS, JavaScript, Bootstrap
+    Frontend: HTML, CSS, JavaScript, Bootstrap
     Backend: Node.js, Express.js
     Database: MongoDB
     Authentication: Passport.js for user authentication
-    Other Tools: Mongoose for MongoDB object modeling, EJS for templating**
+    Other Tools: Mongoose for MongoDB object modeling, EJS for templating
 
 Installation
 
 To get a local copy of the project up and running, follow these steps:
 Prerequisites
 
-   ** Node.js (v14 or above)
-    MongoDB**
+    Node.js (v14 or above)
+    MongoDB
 
 Steps
 
@@ -67,7 +67,7 @@ bash
 
 Usage
 
-   ** Register or log in to explore the hotel listings.
+   Register or log in to explore the hotel listings.
     Search for hotels using the search bar and filters.
     View hotel details and choose a room to book.
     Manage your bookings through the user dashboard.
