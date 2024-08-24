@@ -1,40 +1,42 @@
-Welcome to the Hotel Booking Site project! This application allows users to browse, select, and book hotel rooms seamlessly. Built with user experience and functionality in mind, this project provides a complete solution for hotel booking management.
-Table of Contents
+Hotel Booking Site
 
-    Features
-    Technologies Used
-    Installation
-    Usage
-    Contributing
-    License
-    Contact
-
+Welcome to the Hotel Booking Site repository! This project is a web application designed for users to search for hotels, view details, and make bookings. The site provides a seamless and intuitive interface for both hotel owners and customers.
 Features
 
-    User Authentication: Secure login and registration for users.
-    Room Browsing: View available rooms with details such as price, amenities, and images.
-    Booking Management: Book rooms and manage existing bookings.
-    Admin Dashboard: Admin can manage rooms, view bookings, and handle user inquiries.
-    Responsive Design: Optimized for both desktop and mobile devices.
+    **User Registration and Authentication: Allows users to create an account, log in, and manage their bookings.
+    Hotel Search and Filtering: Users can search for hotels based on location, price, rating, and amenities.
+    Booking System: Enables users to book rooms and manage their reservations.
+    Admin Dashboard: Hotel owners and admins can add, edit, or remove hotel listings and manage bookings.
+    Responsive Design: The website is fully responsive, providing a great experience on both desktop and mobile devices.**
 
-Technologies Used
+Tech Stack
 
-    Frontend: HTML, CSS, JavaScript, React
-    Backend: Node.js, Express
+   ** Frontend: HTML, CSS, JavaScript, Bootstrap
+    Backend: Node.js, Express.js
     Database: MongoDB
-    Authentication: JSON Web Tokens (JWT)
-    Payment Gateway: Stripe API (if applicable)
-    Deployment: Docker, Kubernetes (if applicable)
+    Authentication: Passport.js for user authentication
+    Other Tools: Mongoose for MongoDB object modeling, EJS for templating**
 
 Installation
 
-To run this project locally, follow these steps:
+To get a local copy of the project up and running, follow these steps:
+Prerequisites
 
-    Clone the repository:
+   ** Node.js (v14 or above)
+    MongoDB**
 
-    bash
+Steps
+
+    **Clone the repository:
+
+    bash**
 
 git clone https://github.com/Sundhar22/HotelBookingSite.git
+
+Navigate to the project directory:
+
+bash
+
 cd HotelBookingSite
 
 Install dependencies:
@@ -45,14 +47,13 @@ npm install
 
 Set up environment variables:
 
-Create a .env file in the root directory and add your environment variables (example provided below):
+Create a .env file in the root directory and add your environment variables. Here’s an example:
 
-env
+bash
 
 PORT=3000
 MONGODB_URI=your_mongodb_uri
-JWT_SECRET=your_jwt_secret
-STRIPE_SECRET_KEY=your_stripe_secret_key
+SESSION_SECRET=your_secret
 
 Run the application:
 
@@ -60,17 +61,14 @@ bash
 
     npm start
 
-    The application will run on http://localhost:3000.
+    Visit the application:
+
+    Open your browser and go to http://localhost:3000.
 
 Usage
 
-    Register or Log in: Create an account or log in with existing credentials.
-    Browse Rooms: Explore the available rooms and select your preferred one.
-    Make a Booking: Choose your dates, provide necessary details, and confirm the booking.
-    Manage Bookings: View and manage your bookings from the user dashboard.
-
-
-License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-Contact
+   ** Register or log in to explore the hotel listings.
+    Search for hotels using the search bar and filters.
+    View hotel details and choose a room to book.
+    Manage your bookings through the user dashboard.
+    Admin users can manage hotels and bookings through the admin dashboard.**
