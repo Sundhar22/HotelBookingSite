@@ -3,11 +3,11 @@ Hotel Booking Site
 Welcome to the Hotel Booking Site repository! This project is a web application designed for users to search for hotels, view details, and make bookings. The site provides a seamless and intuitive interface for both hotel owners and customers.
 Features
 
-    **User Registration and Authentication: Allows users to create an account, log in, and manage their bookings.
+    User Registration and Authentication: Allows users to create an account, log in, and manage their bookings.
     Hotel Search and Filtering: Users can search for hotels based on location, price, rating, and amenities.
     Booking System: Enables users to book rooms and manage their reservations.
     Admin Dashboard: Hotel owners and admins can add, edit, or remove hotel listings and manage bookings.
-    Responsive Design: The website is fully responsive, providing a great experience on both desktop and mobile devices.**
+    Responsive Design: The website is fully responsive, providing a great experience on both desktop and mobile devices.
 
 Tech Stack
 
@@ -27,9 +27,9 @@ Prerequisites
 
 Steps
 
-    **Clone the repository:
+    Clone the repository:
 
-    bash**
+    bash
 
 git clone https://github.com/Sundhar22/HotelBookingSite.git
 
