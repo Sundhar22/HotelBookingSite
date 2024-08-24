@@ -67,8 +67,22 @@ bash
 
 Usage
 
-   Register or log in to explore the hotel listings.
+    Register or log in to explore the hotel listings.
     Search for hotels using the search bar and filters.
     View hotel details and choose a room to book.
     Manage your bookings through the user dashboard.
-    Admin users can manage hotels and bookings through the admin dashboard.**
+    Admin users can manage hotels and bookings through the admin dashboard.
+
+Contributing
+
+Contributions are welcome! Please follow these steps:
+
+    Fork the repository.
+    Create a new branch (git checkout -b feature/YourFeatureName).
+    Commit your changes (git commit -m 'Add some feature').
+    Push to the branch (git push origin feature/YourFeatureName).
+    Open a pull request.
+
+License
+
+This project is licensed under the MIT License. See the LICENSE file for more details.
