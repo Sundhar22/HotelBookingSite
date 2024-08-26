@@ -1,5 +1,4 @@
 const Hero = () => {
-    console.log("Hero component");
     return (
 
         <div className="bg-blue-800 pb-16">

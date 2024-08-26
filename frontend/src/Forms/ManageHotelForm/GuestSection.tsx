@@ -15,27 +15,27 @@ const GuestSection = () => {
                 <div >
                     <label className="grid max-w-[95%] gap-1">
                     <span>Adults</span>
-                    <input {...register("adultCount", {
+                    <input {...register("adultCounts", {
                         required: "This field is required",
                         min: { value: 1, message: "At least 1 adult must be present" }
                     })} className="border rounded-md text-gray-700 outline-none px-1 py-0.5 " type="number" min={1} />
                     
                     </label>
                     
-                    {errors.adultCount && <span className="text-red-400 font-bold">{errors.adultCount.message}</span>}
+                    {errors.adultCounts && <span className="text-red-400 font-bold">{errors.adultCounts.message}</span>}
                 </div>
 
                 <div >
                     <label className="grid max-w-[95%] gap-1">
                     <span>Children</span>
-                    <input {...register("children", {
+                    <input {...register("childrenCounts", {
                         required: "This field is required",
                         min: { value: 0, message: "Minimum 0 children allowed" }
                     })} className="border rounded-md text-gray-700 outline-none px-1 py-0.5 " type="number" min={0} />
                 
                     </label>
                     
-                        {errors.children && <span className="text-red-400 font-bold">{errors.children.message}</span>}
+                        {errors.childrenCounts && <span className="text-red-400 font-bold">{errors.childrenCounts.message}</span>}
 
                 </div>
 

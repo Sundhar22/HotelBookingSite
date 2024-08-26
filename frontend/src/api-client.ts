@@ -1,7 +1,7 @@
+import { HotelType } from "../../backend/src/models/HotelType";
 import { RegisterType } from "./pages/register";
 import { SignInFormData } from "./pages/SignIn";
-import {HotelType} from "../../backend/src/models/HotelType";
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL as string || "";
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL as string) || "";
 
 export const register = async (data: RegisterType) => {
   const response = await fetch(`${API_BASE_URL}/api/users/register`, {
@@ -34,8 +34,9 @@ export const signOut = async () => {
     credentials: "include",
     method: "POST",
   });
+
   if (!response.ok) {
-    throw new Error("An error occurred while signing out");
+    throw new Error("Error during sign out");
   }
 };
 
@@ -69,16 +70,49 @@ export const addHotel = async (data: FormData) => {
   return response.json();
 };
 
-export const getMyHotel = async():Promise<HotelType[]>=>{
-  const response = await fetch(`${API_BASE_URL}/api/my-hotels`,{
-    credentials:"include",
+export const getMyHotel = async (): Promise<HotelType[]> => {
+  const response = await fetch(`${API_BASE_URL}/api/my-hotels`, {
+    credentials: "include",
   });
 
-
-  if(!response.ok){
-    throw new Error("An error occurred while fetching hotels")
+  if (!response.ok) {
+    throw new Error("An error occurred while fetching hotels");
   }
 
   return response.json();
+};
 
+export const getHotel = async (id: string): Promise<HotelType> => {
+  const response = await fetch(`${API_BASE_URL}/api/my-hotels/${id}`, {
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("An error occurred while fetching hotel");
+  }
+
+
+  return response.json();
+};
+
+
+export const updatedHotel = async (data:FormData)=>{
+
+  const response = await fetch(`${API_BASE_URL}/api/my-hotels/${data.get("hotelId")}`,{
+
+    method:"PUT",
+    credentials:"include",
+    body:data
+
+  });
+
+  if(!response.ok){
+    throw new Error("An error occurred while updating hotel");
+  }
+
+  return response.json();
+  
 }
+
+
+

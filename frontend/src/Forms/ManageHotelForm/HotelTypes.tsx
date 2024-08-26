@@ -17,8 +17,11 @@ const HotelTypes = () => {
                 {hotelTypes.map((type, index) => (
                     <label
                         key={index}
-                        className={watchInput === type ? "text-gray-700 text-sm font-bold flex gap-2 rounded-full cursor-pointer bg-blue-200 px-5 py-2"
-                            : "text-gray-700 text-sm font-bold flex gap-2 rounded-full cursor-pointer bg-gray-200 px-5 py-2"}>
+                        className={watchInput === type
+                            ? "text-gray-700 text-sm font-bold flex gap-2 rounded-full cursor-pointer bg-blue-200 px-5 py-2"
+                            : "text-gray-700 text-sm font-bold flex gap-2 rounded-full cursor-pointer bg-gray-200 px-5 py-2"
+                        }
+                    >
 
                         <input
                             type="radio"
@@ -27,7 +30,7 @@ const HotelTypes = () => {
                             className="hidden"
                         >
                         </input>
-                        <p>{type}</p>
+                        <span>{type}</span>
 
                     </label>
                 ))}

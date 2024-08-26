@@ -3,7 +3,6 @@ import { UseAppContext } from "../context/AppContext";
 import SignOutButton from "./SignOutButton";
 
 const Header = () => {
-    console.log("Header rendered")
     const { isLogin } = UseAppContext();
     const style: string = "bg-white text-blue-800 rounded-md text-xl font-semibold p-2  hover:text-white hover:bg-blue-800  hover:border-white border-2 ";
     return (

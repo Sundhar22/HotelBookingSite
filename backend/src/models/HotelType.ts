@@ -22,6 +22,7 @@ const hotelSchema = new mongoose.Schema<HotelType>({
   name: { type: String, required: true },
   city: { type: String, required: true },
   country: { type: String, required: true },
+  type: { type: String, required: true },
   description: { type: String, required: true },
   adultCounts: { type: Number, required: true },
   childrenCounts: { type: Number, required: true },

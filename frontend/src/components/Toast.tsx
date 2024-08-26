@@ -8,7 +8,6 @@ type ToastProps = {
 
 const Toast = ({ message, type, onClose }: ToastProps) => {
 
-    console.log("Toast rendered")
 
     useEffect(
         () => {

@@ -9,6 +9,7 @@ const DetailsSection = () => {
 
     return (
 
+
         <div className="flex flex-col gap-4">
             <h1 className="h-1 font-bold text-xl mb-3">
                 Add Hotel
@@ -82,14 +83,14 @@ const DetailsSection = () => {
                             Select Star Below
                         </option>
 
-                        {[1, 2, 3, 4, 5].map((num ,index) => (<option key={index} value={num}>
+                        {[1, 2, 3, 4, 5].map((num, index) => (<option key={index} value={num}>
                             {num}
                         </option>))}
 
                     </select>
 
                 </label>
-                {errors.starRating&&<span className="text-red-400 font-bold">{errors.starRating.message}</span>}
+                {errors.starRating && <span className="text-red-400 font-bold">{errors.starRating.message}</span>}
 
 
             </div>

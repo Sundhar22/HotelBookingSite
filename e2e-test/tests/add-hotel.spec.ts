@@ -36,17 +36,21 @@ test("add new hotels to the  server!", async ({ page }) => {
   await page.getByLabel("Free Wi-Fi").check();
   await page.getByLabel("Bar/Lounge").check();
 
-  await page.locator("[name=adultCount]").fill("2");
-  await page.locator("[name=children]").fill("1");
+  await page.locator("[name=adultCounts]").fill("2");
+  await page.locator("[name=childrenCounts]").fill("1");
 
   await page.setInputFiles("[name=imageFiles]", [
     path.join(__dirname, "files", "1.png"),
     path.join(__dirname, "files", "2.png"),
   ]);
-  await page.getByRole("button", { name: "save" }).click();
+  // await page.getByRole("button", { name: "Save" }).click();
+  await page.locator("[type=submit]").click();
 
-  await expect(page.getByText("Hotel added successfully")).toBeVisible({
+  await expect(page.getByText("Saving...")).toBeVisible({
     timeout: 10000,
+  });
+  await expect(page.getByText("Hotel added successfully")).toBeVisible({
+    timeout: 500000,
   });
 });
 
@@ -60,3 +64,22 @@ test("check the added hotel in the my hotels page", async ({ page }) => {
   await expect(page.getByText("Test description of the hotel")).toBeVisible();
   await expect(page.getByText(" City: Test city Country: Test country Adults: 2 Children: 1 Price: 100 Rating: 5")).toBeVisible();
 });
+
+test("edit the hotel",async({page})=>{
+
+  await page.goto(`${UI_URL}/my-hotels`);
+
+  await page.getByRole("button",{name:"Edit"}).first().click();
+
+  await page.waitForSelector('[name="name"]',{state:"attached"});
+
+  await expect(page.locator('[name="name"]')).toHaveValue("Test Hotel");
+
+  await page.locator('[name="name"]').fill("Test Hotel 2");
+
+  await page.getByRole("button",{name:"save"}).click();
+
+  await expect(page.getByText("Hotel updated successfully")).toBeVisible();
+
+
+})

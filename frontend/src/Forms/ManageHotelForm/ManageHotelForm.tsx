@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { HotelType } from "../../../../backend/src/models/HotelType";
 import DetailsSection from "./DetailsSection";
 import FacilitiesSection from "./FacilitiesSection";
 import GuestSection from "./GuestSection";
@@ -14,28 +16,41 @@ export type HotelFormType = {
     pricePer24h: number;
     starRating: number;
     facilities: string[];
+    imageUrls: string[];
     imageFiles: FileList;
-    adultCount: number;
-    children: number;
+    adultCounts: number;
+    childrenCounts: number;
 }
 
-type props ={
-    onSave(data: FormData) :void,
+type props = {
+    hotel?: HotelType,
+    onSave(data: FormData): void,
     isLoading: boolean
-
 }
 
 
-const ManageHotelForm = ({onSave,isLoading}:props) => {
+const ManageHotelForm = ({ onSave, isLoading, hotel }: props) => {
 
-    
+
 
     const formObjects = useForm<HotelFormType>();
-    const { handleSubmit } = formObjects;
+    const { handleSubmit, reset } = formObjects;
+
+    useEffect(() => {
+        reset(hotel);
+    }, [hotel, reset]);
+
+
+
     const onSubmit = handleSubmit(
         (data: HotelFormType) => {
 
             const formData = new FormData();
+
+            if(hotel){
+                formData.append("hotelId",hotel._id);
+            }
+
             formData.append("name", data.name);
             formData.append("city", data.city);
             formData.append("country", data.country);
@@ -43,22 +58,27 @@ const ManageHotelForm = ({onSave,isLoading}:props) => {
             formData.append("type", data.type);
             formData.append("pricePer24h", data.pricePer24h.toString());
             formData.append("starRating", data.starRating.toString());
-            formData.append("adultCounts", data.adultCount.toString());
-            formData.append("childrenCounts", data.children.toString());
-            data.facilities.forEach((facility,i) => {
-                formData.append(`facilities${[i]}`, facility);
-            });
-            Array.from(data.imageFiles).forEach((image) => {
-                formData.append("images", image);
+            formData.append("adultCounts", data.adultCounts.toString());
+            formData.append("childrenCounts", data.childrenCounts.toString());
+            data.facilities.forEach((facility, i) => {
+                formData.append(`facilities[${i}]`, facility);
             });
 
-            
+            if (data.imageUrls) {
+                data.imageUrls.forEach((url,index)=>{
+                    formData.append(`imageUrls[${index}]`,url);
+                })
+            }
+
+            Array.from(data.imageFiles).forEach((image) => {
+                formData.append(`images`, image);
+            });
             onSave(formData);
-        
+
         }
     )
 
-    
+
     return <FormProvider {...formObjects}>
         <form className="grid gap-10" onSubmit={onSubmit}>
             <DetailsSection />
@@ -67,7 +87,7 @@ const ManageHotelForm = ({onSave,isLoading}:props) => {
             <GuestSection />
             <ImageSection />
             <span>
-                <button disabled = {isLoading} type="submit" className="bg-blue-500 text-white px-4 py-2 rounded disabled:bg-gray-400">{isLoading?"Saving...":"Save"}</button>
+                <button disabled={isLoading} type="submit" className="bg-blue-500 text-white px-4 py-2 rounded disabled:bg-gray-400">{isLoading ? "Saving..." : "Save"}</button>
             </span>
         </form>
     </FormProvider>

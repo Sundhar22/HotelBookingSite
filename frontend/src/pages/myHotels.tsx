@@ -16,7 +16,6 @@ const MyHotels = () => {
         return <span>No Hotels found</span>;
     }
 
-    console.log(hotelData)
 
     return (
         <div>
@@ -32,23 +31,7 @@ const MyHotels = () => {
 
             </span>
 
-            {/*
-        _id: string;
-        userId: string;
-        name: string;
-        city: string;
-        country: string;
-        description: string;
-        type: string;
-        adultCounts: number;
-        childrenCounts: number;
-        facilities: string[];
-        imageUrls: string[];
-        pricePer24h: number;
-        starRating: number;
-        lastUpdated: Date;
 
-        */}
 
 
             <div className="grid  gap-4">
@@ -84,6 +67,8 @@ const MyHotels = () => {
                                     <span> <span className="font-semibold ">Price:</span>  {hotel.pricePer24h}</span>
                                     <span>  <span className="font-semibold ">Rating:</span>   {hotel.starRating}</span>
                                 </div>
+
+                                <div className="flex justify-end   "><button className=" bg-blue-700 px-3 py-1 text-white font-semibold text-sm rounded"><Link to={`/edit-hotel/${hotel._id}`}>Edit</Link></button> </div>
 
 
                             </div>
