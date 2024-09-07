@@ -1,6 +1,6 @@
 import {  useMutation, useQuery } from "react-query";
 import { useParams } from "react-router-dom";
-import { HotelType } from "../../../backend/src/models/HotelType";
+import { HotelType } from "../../../backend/src/shared/types";
 import * as api from "../api-client";
 import ManageHotelForm from "../Forms/ManageHotelForm/ManageHotelForm";
 import { UseAppContext } from "../context/AppContext";

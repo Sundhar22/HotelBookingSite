@@ -8,6 +8,7 @@ import userLoginRoute from "./routes/auth";
 import userRoute from "./routes/users";
 import {v2 as cloudinary} from "cloudinary";
 import myHotelRoute from "./routes/my-Hotels";
+import hotelsRoute from "./routes/hotels"
 
 cloudinary.config({
   cloud_name:process.env.CLOUDINARY_CLOUD_NAME,
@@ -16,13 +17,10 @@ cloudinary.config({
   timeout: 60000
 })
 
-
-
 mongoose
   .connect(process.env.MONGODB_CONNECTION_STRING as string)
   .then(() => console.log("Connected to DB"));
   // .catch((err) => console.error("connection error:"));
-
 // creating express
 const app = express();
 // using express.json for parsing json data which mean we can get json data from the body of the request
@@ -42,7 +40,7 @@ app.use(express.static(path.join(__dirname, "../../frontend/dist/")));
 app.use("/api/users", userRoute);
 app.use("/api/auth", userLoginRoute);
 app.use("/api/my-hotels", myHotelRoute);
-
+app.use("/api/hotels",hotelsRoute)
 app.get("*", (req, res, next) => {
   if (req.url.startsWith("/api")) {
     next();

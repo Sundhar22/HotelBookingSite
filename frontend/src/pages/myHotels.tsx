@@ -57,7 +57,7 @@ const MyHotels = () => {
 
                                 }</div>
 
-                                <p className="m-3">{hotel.description}</p>
+                                <p className="m-3 line-clamp-2">{hotel.description}</p>
 
                                 <div className="grid grid-cols-2 gap-3 m-3">
                                     <span> <span className="font-semibold ">City:</span> {hotel.city}</span>

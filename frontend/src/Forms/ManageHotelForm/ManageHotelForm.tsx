@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { HotelType } from "../../../../backend/src/models/HotelType";
+import { HotelType } from "../../../../backend/src/shared/types";
 import DetailsSection from "./DetailsSection";
 import FacilitiesSection from "./FacilitiesSection";
 import GuestSection from "./GuestSection";

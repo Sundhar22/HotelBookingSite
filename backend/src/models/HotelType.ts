@@ -1,21 +1,5 @@
 import mongoose from "mongoose";
-
-export type HotelType = {
-  _id: string;
-  userId: string;
-  name: string;
-  city: string;
-  country: string;
-  description: string;
-  type: string;
-  adultCounts: number;
-  childrenCounts: number;
-  facilities: string[];
-  imageUrls: string[];
-  pricePer24h: number;
-  starRating: number;
-  lastUpdated: Date;
-};
+import { HotelType } from "../shared/types";
 
 const hotelSchema = new mongoose.Schema<HotelType>({
   userId: { type: String, required: true },
@@ -33,6 +17,6 @@ const hotelSchema = new mongoose.Schema<HotelType>({
   lastUpdated: { type: Date, default: Date.now },
 });
 
-const Hotel= mongoose.model<HotelType>("Hotels", hotelSchema);
+const Hotel = mongoose.model<HotelType>("Hotels", hotelSchema);
 
-export default Hotel ;
+export default Hotel;

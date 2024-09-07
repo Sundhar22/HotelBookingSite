@@ -4,7 +4,9 @@ import { body } from "express-validator";
 import mongoose from "mongoose";
 import multer from "multer";
 import verifyToken from "../middleware/auth";
-import Hotel, { HotelType } from "../models/HotelType";
+import Hotel from "../models/HotelType";
+import { HotelType } from "../shared/types";
+
 const router = express.Router();
 
 const storage = multer.memoryStorage();

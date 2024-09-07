@@ -1,13 +1,6 @@
 import bcrypt from "bcrypt";
 import mongoose from "mongoose";
-// definition UserType-> type of user
-export type UserType = {
-  _id: string;
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-};
+import { UserType } from "../shared/types";
 
 // userSchema-> schema for user.
 // schema is a blueprint of how the data will be stored in the database
@@ -19,7 +12,7 @@ const userSchema = new mongoose.Schema({
 });
 userSchema.pre("save", async function (next) {
   if (this.isModified("password")) {
-    this.password=await bcrypt.hash(this.get("password"), 8);
+    this.password = await bcrypt.hash(this.get("password"), 8);
   }
   next();
 });
