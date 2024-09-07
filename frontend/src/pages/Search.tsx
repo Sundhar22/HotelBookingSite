@@ -8,7 +8,7 @@ const Search = () => {
 
     const searchData = useSearchContext();
     const [page, setPage] = useState<number>(1);
-
+    console.log(setPage)
 
     const searchParams = {
         destination: searchData.destination,
