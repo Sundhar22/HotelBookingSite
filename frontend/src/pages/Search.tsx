@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "react-query";
 import * as apiClient from "../api-client";
+import Pagination from "../components/Pagination";
 import SearchResultCard from "../components/SearchResultCard";
 import { useSearchContext } from "../context/SearchContext";
 
@@ -8,7 +9,6 @@ const Search = () => {
 
     const searchData = useSearchContext();
     const [page, setPage] = useState<number>(1);
-    console.log(setPage)
 
     const searchParams = {
         destination: searchData.destination,
@@ -47,8 +47,11 @@ const Search = () => {
                 </div>
 
                 {hotelData?.data.map((hotel) => <SearchResultCard key={hotel._id} hotel={hotel} />)}
-
+                <div className="flex max-w-full justify-center">
+                    <Pagination onChangePage={(x) => setPage(x)} page={hotelData?.pagination.page || 1} pages={hotelData?.pagination.pages || 1} />
+                </div>
             </div>
+
 
         </div>
     )

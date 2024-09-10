@@ -6,15 +6,14 @@ const Header = () => {
     const { isLogin } = UseAppContext();
     const style: string = "bg-white text-blue-800 rounded-md text-xl font-semibold p-2  hover:text-white hover:bg-blue-800  hover:border-white border-2 ";
     return (
-        <div className="bg-blue-800 py-6">
+        <div className="bg-blue-800 p-6">
 
-            <div className="container flex justify-between mx-auto ">
-                <span className="font-bold text-white text-3xl tracking-tight ">
-                    <Link to={'/'}>
-                        EasyTrip.com
-                    </Link>
-                </span>
-                <span className="flex space-x-2 ">
+            <div className="sm:grid sm:grid-cols-1 md:flex justify-between mx-auto">                <span className="font-bold text-white text-3xl tracking-tight ">
+                <Link to={'/'}>
+                    EasyTrip.com
+                </Link>
+            </span>
+                <span className="flex space-x-2  ">
 
                     {
                         isLogin ?

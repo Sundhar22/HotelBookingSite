@@ -38,8 +38,8 @@ const SearchBar = () => {
 
     return (
 
-        <form onSubmit={handleSubmit} className=" shadow-md container mx-auto py-6 px-8 -mt-7 bg-white rounded-full w-1/3.8  md:w-1/2">
-            <div className="flex ">
+        <form onSubmit={handleSubmit} className=" shadow-md container mx-auto py-6 px-8 -mt-7 bg-white rounded-sm w-1/3.8  md:w-1/2 md:rounded-full">
+            <div className="grid grid-cols-2  md:flex gap-3">
 
                 <div className="grid">
 
@@ -56,7 +56,7 @@ const SearchBar = () => {
                         required
                         onChange={(event) => setDestination(event.target.value)}
                     />    </div>
-                <div className="bg-gray-200 min-w-0.5"></div>
+                <div className="bg-gray-200 min-w-0.5 hidden sm:block"></div>
 
                 <div className="mx-3  grid">
                     <span className="font-semibold text-base" >Adult</span>
@@ -69,7 +69,7 @@ const SearchBar = () => {
                         onChange={(event) => setAdultCount(parseInt(event.target.value) || 0)}
                     />
                 </div>
-                <div className="bg-gray-200 min-w-0.5"></div>
+                <div className="bg-gray-200 min-w-0.5 hidden sm:block"></div>
 
                 <div className=" mx-3 grid">
                     <span className="font-semibold text-base" >Children</span>
@@ -81,7 +81,7 @@ const SearchBar = () => {
                         value={childrenCount}
                         onChange={(event) => setChildrenCount(parseInt(event.target.value) || 0)}
                     />    </div>
-                <div className="bg-gray-200 min-w-0.5"></div>
+                <div className="bg-gray-200 min-w-0.5 hidden sm:block"></div>
 
                 <div className=" mx-3 grid">
                     <span className="font-semibold text-base" >Check-In</span>
@@ -99,7 +99,7 @@ const SearchBar = () => {
                         wrapperClassName="w-32"
                     />
                 </div>
-                <div className="bg-gray-200 min-w-0.5"></div>
+                <div className="bg-gray-200 min-w-0.5 hidden sm:block"></div>
 
                 <div className=" mx-3 grid ">
                     <span className="font-semibold text-base" >Check-Out</span>
@@ -117,7 +117,6 @@ const SearchBar = () => {
                         wrapperClassName="w-32"
                     />
                 </div>
-
 
                 <button type="submit" className="rounded-full bg-blue-700 flex items-center justify-center p-4" ><FaArrowRightLong className="text-2xl text-white" /></button>
 

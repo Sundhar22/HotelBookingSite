@@ -18,26 +18,37 @@ const SearchResultCard = ({ hotel }: SearchResultCardProps) => {
                     <div>
                         <div className="flex">
                             {Array.from({ length: hotel.starRating }).map(() => <AiFillStar className="fill-yellow-400" />)}
+                            <span className="ml-1 text-sm">{hotel.type}</span>
+
                         </div>
-                        <h3 className="text-xl font-semibold">{hotel.name}</h3>
+                        <Link className="text-xl font-semibold" to={`/detail/${hotel._id}`}>{hotel.name}</Link>
                     </div>
 
                     <div>
-                        <p className="line-clamp-4">{hotel.description}</p>
+                        <p className="line-clamp-4 pt-3">{hotel.description}</p>
                     </div>
 
-                    <div className="grid grid-cols-2 items-end">
-
-                        <div className="flex gap-1 items-center">
-                            {hotel.facilities.slice(0, 3).map((facility) => <span className="bg-slate-300 p-2 rounded-lg font-bold text-xs whitespace-nowrap">{facility}</span>)}
-                            <span className="text-sm flex">{hotel.facilities.length > 3 && `+${hotel.facilities.length - 3} more`}</span>
+                    <div >
+                        <div className="flex items-center justify-between pt-3 md:justify-start md:gap-2">
+                            <div className="flex flex-wrap lg:flex-nowrap gap-1 items-center">
+                                {hotel.facilities.slice(0, 3).map((facility) => (
+                                    <span className="bg-slate-300 p-2 rounded-lg font-bold text-xs whitespace-nowrap">
+                                        {facility}
+                                    </span>
+                                ))}
+                            </div>
+                            {hotel.facilities.length > 3 && (
+                                <span className="text-sm col-span-3">
+                                    +{hotel.facilities.length - 3} more
+                                </span>
+                            )}
                         </div>
 
                         <div className="flex flex-col items-end gap-1 ">
                             <span className="font-bold">£{hotel.pricePer24h} per 24 hours</span>
                             <Link
                                 to={`/detail/${hotel._id}`}
-                                className="bg-blue-600 text-white h-full p-2 font-bold text-xl max-w-fit hover:bg-blue-500"
+                                className="bg-blue-600 text-white h-full p-2 font-bold text-base rounded-sm max-w-fit hover:bg-blue-500"
                             >
                                 View More
                             </Link>

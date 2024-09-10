@@ -121,15 +121,17 @@ export type SearchQueryPrams = {
   page?: string;
 };
 
-export const searchHotels = async (searchData: SearchQueryPrams):Promise<searchResponseType> => {
+export const searchHotels = async (
+  searchData: SearchQueryPrams
+): Promise<searchResponseType> => {
   const query = new URLSearchParams();
   query.append("destination", searchData.destination || "");
   query.append("checkIn", searchData.checkIn || "");
   query.append("checkOut", searchData.checkOut || "");
-  query.append("adultsCount", searchData.adultsCount || "");
-  query.append("childrenCount", searchData.childrenCount || "");
+  query.append("adultCounts", searchData.adultsCount || "");
+  query.append("childrenCounts", searchData.childrenCount || "");
   query.append("page", searchData.page || "");
-  console.log("query....");
+
   const response = await fetch(`${API_BASE_URL}/api/hotels/search?${query}`, {
     method: "GET",
     credentials: "include",
