@@ -35,33 +35,30 @@ const SearchBar = () => {
     const minDate = new Date();
     const maxDate = new Date();
     maxDate.setFullYear(maxDate.getFullYear() + 1);
-
     return (
+        <form onSubmit={handleSubmit} className="shadow-md container mx-auto py-6 px-6 -mt-7 bg-white rounded-lg w-full max-w-5xl">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:flex-wrap lg:justify-between gap-4">
 
-        <form onSubmit={handleSubmit} className=" shadow-md container mx-auto py-6 px-8 -mt-7 bg-white rounded-sm w-1/3.8  md:w-1/2 md:rounded-full">
-            <div className="grid grid-cols-2  md:flex gap-3">
-
-                <div className="grid">
-
-                    <div className="flex gap-1">
-                        <MdTravelExplore size={25} className="mr-2" />
-                        <span className="font-semibold text-base" >Location</span>
-
+                {/* Location Input */}
+                <div className="flex flex-col  lg:items-center lg:mr-4 lg:flex-grow">
+                    <div className="flex items-center gap-2 mb-2 lg:mb-0">
+                        <MdTravelExplore size={25} className="text-blue-700" />
+                        <span className="font-semibold text-base">Location</span>
                     </div>
-
                     <input
                         placeholder="Where are you going?"
-                        className="text-md w-full focus:outline-none"
+                        className="text-md w-full focus:outline-none border-b focus:border-blue-700 lg:ml-2"
                         value={destination}
-                        required
+                        name="destination"
                         onChange={(event) => setDestination(event.target.value)}
-                    />    </div>
-                <div className="bg-gray-200 min-w-0.5 hidden sm:block"></div>
+                    />
+                </div>
 
-                <div className="mx-3  grid">
-                    <span className="font-semibold text-base" >Adult</span>
+                {/* Adult Input */}
+                <div className="flex flex-col  lg:items-center lg:mr-4">
+                    <span className="font-semibold text-base lg:mr-2">Adult</span>
                     <input
-                        className="w-full p-1 focus:outline-none font-bold"
+                        className="w-full lg:w-24 p-1 focus:outline-none font-bold border-b focus:border-blue-700"
                         type="number"
                         min={1}
                         max={20}
@@ -69,23 +66,23 @@ const SearchBar = () => {
                         onChange={(event) => setAdultCount(parseInt(event.target.value) || 0)}
                     />
                 </div>
-                <div className="bg-gray-200 min-w-0.5 hidden sm:block"></div>
 
-                <div className=" mx-3 grid">
-                    <span className="font-semibold text-base" >Children</span>
+                {/* Children Input */}
+                <div className="flex flex-col  lg:items-center lg:mr-4">
+                    <span className="font-semibold text-base lg:mr-2">Children</span>
                     <input
-                        className="w-full p-1 focus:outline-none font-bold"
+                        className="w-full lg:w-24 p-1 focus:outline-none font-bold border-b focus:border-blue-700"
                         type="number"
                         min={0}
                         max={20}
                         value={childrenCount}
                         onChange={(event) => setChildrenCount(parseInt(event.target.value) || 0)}
-                    />    </div>
-                <div className="bg-gray-200 min-w-0.5 hidden sm:block"></div>
+                    />
+                </div>
 
-                <div className=" mx-3 grid">
-                    <span className="font-semibold text-base" >Check-In</span>
-
+                {/* Check-In Input */}
+                <div className="flex flex-col  lg:items-center lg:mr-4">
+                    <span className="font-semibold text-base lg:mr-2">Check-In</span>
                     <DatePicker
                         selected={checkIn}
                         onChange={(date) => setCheckIn(date as Date)}
@@ -95,15 +92,13 @@ const SearchBar = () => {
                         minDate={minDate}
                         maxDate={maxDate}
                         placeholderText="Check-in Date"
-                        className="w-32 bg-white  focus:outline-none"
-                        wrapperClassName="w-32"
+                        className="w-full lg:w-32 bg-white focus:outline-none border-b focus:border-blue-700"
                     />
                 </div>
-                <div className="bg-gray-200 min-w-0.5 hidden sm:block"></div>
 
-                <div className=" mx-3 grid ">
-                    <span className="font-semibold text-base" >Check-Out</span>
-
+                {/* Check-Out Input */}
+                <div className="flex flex-col  lg:items-center lg:mr-4">
+                    <span className="font-semibold text-base lg:mr-2">Check-Out</span>
                     <DatePicker
                         selected={checkOut}
                         onChange={(date) => setCheckOut(date as Date)}
@@ -113,17 +108,20 @@ const SearchBar = () => {
                         minDate={checkIn}
                         maxDate={maxDate}
                         placeholderText="Check-out Date"
-                        className="w-32 bg-white  focus:outline-none"
-                        wrapperClassName="w-32"
+                        className="w-full lg:w-32 bg-white focus:outline-none border-b focus:border-blue-700"
                     />
                 </div>
 
-                <button type="submit" className="rounded-full bg-blue-700 flex items-center justify-center p-4" ><FaArrowRightLong className="text-2xl text-white" /></button>
-
-
+                {/* Submit Button */}
+                <div className="flex items-center justify-center lg:justify-start">
+                    <button type="submit" name="Search" className="rounded-full bg-blue-700 text-white p-3 w-full lg:w-auto flex items-center justify-center">
+                        <FaArrowRightLong className="text-2xl" />
+                    </button>
+                </div>
             </div>
         </form>
-    )
+    );
+
 
 }
 

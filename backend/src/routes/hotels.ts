@@ -9,48 +9,53 @@ router.get("/search", async (req: Request, res: Response) => {
   try {
     const searchQuery = constructSearchQuery(req.query);
 
-    let sortOptions = {};
+    // Sorting logic based on query parameter
+    let sortOptions: any = {};
 
     switch (req.query.sortBy) {
-      case "pricePer24hAsc":
-        sortOptions = { pricePer24h: 1 };
+      case "pricePer24hDesc":
+        sortOptions = { pricePer24h: -1 };
         break;
-      case "starRating":
+      case "starRatings":
         sortOptions = { starRating: -1 };
         break;
       default:
-        sortOptions = { pricePer24h: -1 };
+        sortOptions = { pricePer24h: 1 };
     }
 
-    const pageSize = 5;
+    const pageSize = 5; // Define how many hotels per page
+    const pageNumber = Math.max(1, parseInt(req.query.page as string) || 1); // Ensure page is at least 1
 
-    const pageNumber = parseInt(req.query.page as string) || 1;
+    // Query all matching hotels to calculate the total count
+    const totalHotels = await Hotel.countDocuments(searchQuery);
 
-    const skip = (pageNumber - 1) * pageSize;
+    // Calculate total pages and ensure valid pageNumber
+    const totalPages = Math.ceil(totalHotels / pageSize);
+    const validPageNumber = Math.min(pageNumber, totalPages); // Ensure page number isn't larger than total pages
 
-    const hotelQueryCount = await Hotel.find(searchQuery);
+    const skip = (validPageNumber - 1) * pageSize;
+
+    // Query the hotels with pagination and sorting
     const hotels = await Hotel.find(searchQuery)
       .sort(sortOptions)
       .skip(skip)
       .limit(pageSize);
 
-    const totalHotels = hotelQueryCount.length;
-
     const response: searchResponseType = {
       data: hotels,
       pagination: {
         totalHotels,
-        page: pageNumber,
-        pages: Math.ceil(totalHotels / pageSize),
+        page: validPageNumber, // Use validPageNumber to ensure current page is valid
+        pages: totalPages, // Calculated based on totalHotels and pageSize
       },
     };
     res.json(response);
   } catch (error) {
-    res.status(500).json({ message: "some thing went wrong" });
+    res.status(500).json({ message: "Something went wrong" });
   }
 });
 
-export default router;
+// Construct search query based on the request parameters
 function constructSearchQuery(query: ParsedQs) {
   let searchQuery: any = {};
 
@@ -63,7 +68,7 @@ function constructSearchQuery(query: ParsedQs) {
 
   if (query.adultsCounts) {
     searchQuery.adultsCounts = {
-      $gte: parseInt(query.adultsCount as string),
+      $gte: parseInt(query.adultsCounts as string),
     };
   }
 
@@ -79,19 +84,29 @@ function constructSearchQuery(query: ParsedQs) {
     };
   }
 
-  if (query.starRating) {
-    searchQuery.starRating = {
-      $in: Array.isArray(query.starRating)
-        ? query.starRating
-        : [query.starRating],
+  if (query.facilities) {
+    searchQuery.facilities = {
+      $all: Array.isArray(query.facilities)
+        ? query.facilities
+        : [query.facilities],
     };
   }
 
-  if (query.pricePer24h) {
+  if (query.starRatings) {
+    searchQuery.starRating = {
+      $in: Array.isArray(query.starRatings)
+        ? query.starRatings
+        : [query.starRatings],
+    };
+  }
+
+  if (query.maxPrice) {
     searchQuery.pricePer24h = {
-      $lte: parseInt(query.pricePer24h as string),
+      $lte: parseInt(query.maxPrice as string),
     };
   }
 
   return searchQuery;
 }
+
+export default router;
