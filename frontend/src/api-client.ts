@@ -147,8 +147,6 @@ export const searchHotels = async (
   searchData.stars?.forEach((star) => query.append("starRatings", star));
   searchData.type?.forEach((type) => query.append("type", type));
 
-
-  
   const response = await fetch(`${API_BASE_URL}/api/hotels/search?${query}`, {
     method: "GET",
     credentials: "include",
@@ -157,5 +155,12 @@ export const searchHotels = async (
   if (!response.ok) {
     throw new Error("An error occurred while fetching hotels");
   }
+  return response.json();
+};
+
+export const getHotelById = async (id: string): Promise<HotelType> => {
+  const response = await fetch(`${API_BASE_URL}/api/hotels/detail/${id}`);
+  if (!response.ok) throw new Error("An error occurred while fetching hotels");
+
   return response.json();
 };

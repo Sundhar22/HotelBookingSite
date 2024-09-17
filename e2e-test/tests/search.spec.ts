@@ -16,12 +16,21 @@ test.beforeEach(async ({ page }) => {
   await expect(page.getByText("Successfully loggedIn")).toBeVisible();
 });
 
-test("hotel should be displayed after text",async({page})=>{
+test("hotel should be displayed after text", async ({ page }) => {
+  await page.goto(UI_URL);
+  await page.locator("[name=destination]").fill("Test city");
+  await page.locator("[name=Search]").click();
+  await expect(page.getByText("1 Hotels found in Test city")).toBeVisible();
+  await expect(page.getByText("Test Hotel 2")).toBeVisible();
+});
 
-    await page.goto(UI_URL);
-    await page.locator("[name=destination]").fill("Test city")
-    await page.locator("[name=Search]").click()
-    await expect(page.getByText("1 Hotels found in Test city")).toBeVisible()
-    await expect(page.getByText("Test Hotel 2")).toBeVisible()
-    
-})
+test("Hotel detail page should be displayed", async ({ page }) => {
+  await page.goto(UI_URL);
+  await page.locator("[name=destination]").fill("Test city");
+  await page.locator("[name=Search]").click();
+  await page.getByText("View More").click();
+
+  await expect(page).toHaveURL(/detail/);
+
+  await expect(page.getByText("Book Now")).toBeVisible();
+});
