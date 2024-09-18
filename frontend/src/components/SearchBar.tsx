@@ -37,17 +37,17 @@ const SearchBar = () => {
     maxDate.setFullYear(maxDate.getFullYear() + 1);
     return (
         <form onSubmit={handleSubmit} className="shadow-md container mx-auto py-6 px-6 -mt-7 bg-white rounded-lg w-full max-w-5xl">
-            <div className="flex flex-col lg:flex-row lg:items-center lg:flex-wrap lg:justify-between gap-4">
+            <div className="flex flex-col md:flex-row md:items-center md:flex-wrap md:justify-between gap-4">
 
                 {/* Location Input */}
-                <div className="flex flex-col  lg:items-center lg:mr-4 lg:flex-grow">
-                    <div className="flex items-center gap-2 mb-2 lg:mb-0">
+                <div className="flex flex-col md:items-center md:mr-4 md:flex-grow">
+                    <div className="flex items-center gap-2 mb-2 md:mb-0">
                         <MdTravelExplore size={25} className="text-blue-700" />
                         <span className="font-semibold text-base">Location</span>
                     </div>
                     <input
                         placeholder="Where are you going?"
-                        className="text-md w-full focus:outline-none border-b focus:border-blue-700 lg:ml-2"
+                        className="text-md w-full md:w-auto focus:outline-none border-b focus:border-blue-700 md:ml-2 p-2 rounded-lg"
                         value={destination}
                         name="destination"
                         onChange={(event) => setDestination(event.target.value)}
@@ -55,10 +55,10 @@ const SearchBar = () => {
                 </div>
 
                 {/* Adult Input */}
-                <div className="flex flex-col  lg:items-center lg:mr-4">
-                    <span className="font-semibold text-base lg:mr-2">Adult</span>
+                <div className="flex flex-col md:items-center md:mr-4">
+                    <span className="font-semibold text-base md:mr-2">Adult</span>
                     <input
-                        className="w-full lg:w-24 p-1 focus:outline-none font-bold border-b focus:border-blue-700"
+                        className="w-full md:w-24 p-2 focus:outline-none font-bold border-b focus:border-blue-700 rounded-lg"
                         type="number"
                         min={1}
                         max={20}
@@ -68,10 +68,10 @@ const SearchBar = () => {
                 </div>
 
                 {/* Children Input */}
-                <div className="flex flex-col  lg:items-center lg:mr-4">
-                    <span className="font-semibold text-base lg:mr-2">Children</span>
+                <div className="flex flex-col md:items-center md:mr-4">
+                    <span className="font-semibold text-base md:mr-2">Children</span>
                     <input
-                        className="w-full lg:w-24 p-1 focus:outline-none font-bold border-b focus:border-blue-700"
+                        className="w-full md:w-24 p-2 focus:outline-none font-bold border-b focus:border-blue-700 rounded-lg"
                         type="number"
                         min={0}
                         max={20}
@@ -81,8 +81,8 @@ const SearchBar = () => {
                 </div>
 
                 {/* Check-In Input */}
-                <div className="flex flex-col  lg:items-center lg:mr-4">
-                    <span className="font-semibold text-base lg:mr-2">Check-In</span>
+                <div className="flex flex-col md:items-center md:mr-4">
+                    <span className="font-semibold text-base md:mr-2">Check-In</span>
                     <DatePicker
                         selected={checkIn}
                         onChange={(date) => setCheckIn(date as Date)}
@@ -92,13 +92,13 @@ const SearchBar = () => {
                         minDate={minDate}
                         maxDate={maxDate}
                         placeholderText="Check-in Date"
-                        className="w-full lg:w-32 bg-white focus:outline-none border-b focus:border-blue-700"
+                        className="w-full md:w-32 bg-white focus:outline-none border-b focus:border-blue-700 rounded-lg p-2"
                     />
                 </div>
 
                 {/* Check-Out Input */}
-                <div className="flex flex-col  lg:items-center lg:mr-4">
-                    <span className="font-semibold text-base lg:mr-2">Check-Out</span>
+                <div className="flex flex-col md:items-center md:mr-4">
+                    <span className="font-semibold text-base md:mr-2">Check-Out</span>
                     <DatePicker
                         selected={checkOut}
                         onChange={(date) => setCheckOut(date as Date)}
@@ -108,13 +108,13 @@ const SearchBar = () => {
                         minDate={checkIn}
                         maxDate={maxDate}
                         placeholderText="Check-out Date"
-                        className="w-full lg:w-32 bg-white focus:outline-none border-b focus:border-blue-700"
+                        className="w-full md:w-32 bg-white focus:outline-none border-b focus:border-blue-700 rounded-lg p-2"
                     />
                 </div>
 
                 {/* Submit Button */}
-                <div className="flex items-center justify-center lg:justify-start">
-                    <button type="submit" name="Search" className="rounded-full bg-blue-700 text-white p-3 w-full lg:w-auto flex items-center justify-center">
+                <div className="flex items-center justify-center md:justify-start">
+                    <button type="submit" name="Search" className="rounded-full bg-blue-700 text-white p-3 w-full md:w-auto flex items-center justify-center">
                         <FaArrowRightLong className="text-2xl" />
                     </button>
                 </div>

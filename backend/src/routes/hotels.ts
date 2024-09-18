@@ -1,10 +1,34 @@
 import express, { Request, Response } from "express";
 import { param, validationResult } from "express-validator";
 import { ParsedQs } from "qs";
+import Stripe from "stripe";
+import verifyToken from "../middleware/auth";
 import Hotel from "../models/HotelType";
-import { searchResponseType } from "../shared/types";
+import {
+  BookingType,
+  PaymentIntentResponse,
+  searchResponseType,
+} from "../shared/types";
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
 const router = express.Router();
+
+router.get("/", async (req: Request, res: Response) => {
+  const { page = 1, limit = 10 } = req.query as ParsedQs;
+
+  try {
+    const hotels = await Hotel.find()
+      .sort("-lastUpdated")
+      .limit(parseInt(limit as string, 10))
+      .skip((parseInt(page as string, 10) - 1) * parseInt(limit as string, 10));
+
+    res.json(hotels);
+  } catch (error) {
+    console.log("error", error);
+    res.status(500).json({ message: "Error fetching hotels" });
+  }
+});
 
 router.get(
   "/detail/:id",
@@ -75,6 +99,110 @@ router.get("/search", async (req: Request, res: Response) => {
     res.status(500).json({ message: "Something went wrong" });
   }
 });
+
+router.post(
+  "/:hotelId/bookings/payment-intent",
+  verifyToken,
+  async (req: Request, res: Response) => {
+    try {
+      const hotelId = req.params.hotelId;
+      const numberOfDays = req.body.numberOfDays;
+      const userId = req.userId;
+
+      const hotel = await Hotel.findById(hotelId);
+
+      if (!hotel) {
+        return res.status(404).json({ message: "Hotel not found" });
+      }
+
+      const totalCost = hotel.pricePer24h * numberOfDays;
+
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: totalCost * 100,
+        currency: "usd",
+        metadata: {
+          hotelId: hotelId,
+          userId: userId,
+        },
+      });
+
+      if (!paymentIntent.client_secret) {
+        return res.status(500).json({ message: "Something went wrong " });
+      }
+
+      const response: PaymentIntentResponse = {
+        totalCost: totalCost,
+        clientSecret: paymentIntent.client_secret?.toString(),
+        paymentIntentId: paymentIntent.id,
+      };
+
+      res.send(response);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Something went wrong " });
+    }
+  }
+);
+
+router.post(
+  "/:hotelId/bookings",
+  verifyToken,
+  async (req: Request, res: Response) => {
+    try {
+      // verify the paymentIntent by paymentIntentId. is user created booking
+      // verify the userId and hotelId
+      // verify the user payment status
+
+      const paymentIntentId = req.body.paymentIntentId;
+      const userId = req.userId;
+      const hotelId = req.params.hotelId;
+
+      const paymentIntent = await stripe.paymentIntents.retrieve(
+        paymentIntentId as string
+      );
+
+      if (!paymentIntent) {
+        return res.status(404).json({ message: "Payment intent not found" });
+      }
+
+      if (
+        paymentIntent.metadata.userId !== userId ||
+        paymentIntent.metadata.hotelId !== hotelId
+      ) {
+        return res.status(401).json({ message: "Unauthorized" });
+      }
+
+      if (paymentIntent.status !== "succeeded") {
+        return res
+          .status(400)
+          .json({ message: "Payment intent not successful" });
+      }
+
+      const newBooking: BookingType = {
+        ...req.body,
+        userId: userId,
+      };
+
+      const hotel = await Hotel.findOneAndUpdate(
+        { _id: hotelId },
+        {
+          $push: {
+            bookings: newBooking,
+          },
+        }
+      );
+
+      if (!hotel) {
+        return res.status(404).json({ message: "Hotel not found" });
+      }
+      hotel.save();
+      res.status(200).json({ message: "Booking created successfully" });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Something went wrong " });
+    }
+  }
+);
 
 // Construct search query based on the request parameters
 function constructSearchQuery(query: ParsedQs) {

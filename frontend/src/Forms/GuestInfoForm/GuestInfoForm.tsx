@@ -1,9 +1,9 @@
 import DatePicker from "react-datepicker";
 import { useForm } from "react-hook-form";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { UseAppContext } from "../../context/AppContext";
 import { useSearchContext } from "../../context/SearchContext";
- 
+
 type Props = {
     hotelId: string;
     pricePer24hrs: number;
@@ -46,13 +46,14 @@ const GuestInfoForm = ({ hotelId, pricePer24hrs }: Props) => {
             data.checkIn,
             data.checkOut,
             data.adults,
-            data.children
+            data.children,
+            hotelId || undefined
         );
 
-        if(isLogin){
-            navigate(`/detail/${hotelId}/booking`);
-        }else{
-            navigate("/sign-in", { state: { from: location} });
+        if (isLogin) {
+            navigate(`/hotel/${hotelId}/booking`);
+        } else {
+            navigate("/sign-in", { state: { from: location } });
         }
     }
 
@@ -152,7 +153,7 @@ const GuestInfoForm = ({ hotelId, pricePer24hrs }: Props) => {
 
                     <div className="flex justify-center">
                         {
-                            isLogin ? <Link to={"/sign-in"} className=" bg-white text-blue-600 rounded-md text-xl font-semibold p-2  hover:text-white hover:bg-blue-800  hover:border-white border-2 " type="submit">Book Now</Link>
+                            isLogin ? <button className=" bg-white text-blue-600 rounded-md text-xl font-semibold p-2  hover:text-white hover:bg-blue-800  hover:border-white border-2 " type="submit">Book Now</button>
                                 : <button className="bg-white text-blue-600 rounded-md text-xl font-semibold p-2  hover:text-white hover:bg-blue-800  hover:border-white border-2 " type="submit">Sign-In to Book</button>
                         }
                     </div>

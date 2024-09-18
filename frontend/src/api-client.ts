@@ -1,8 +1,25 @@
-import { HotelType, searchResponseType } from "../../backend/src/shared/types";
+import {
+  HotelType,
+  searchResponseType,
+  UserType,
+} from "../../backend/src/shared/types";
+import { BookingFormData } from "./Forms/BookingForm/BookingForm";
 
 import { RegisterType } from "./pages/register";
 import { SignInFormData } from "./pages/SignIn";
 const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL as string) || "";
+
+export const fetchCurrentUser = async (): Promise<UserType> => {
+  const response = await fetch(`${API_BASE_URL}/api/users/me`, {
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("An error occurred while fetching current user");
+  } else {
+    return response.json();
+  }
+};
 
 export const register = async (data: RegisterType) => {
   const response = await fetch(`${API_BASE_URL}/api/users/register`, {
@@ -162,5 +179,77 @@ export const getHotelById = async (id: string): Promise<HotelType> => {
   const response = await fetch(`${API_BASE_URL}/api/hotels/detail/${id}`);
   if (!response.ok) throw new Error("An error occurred while fetching hotels");
 
+  return response.json();
+};
+
+export const createPaymentIntent = async (
+  hotelId: string,
+  numberOfDays: string
+) => {
+  const res = await fetch(
+    `${API_BASE_URL}/api/hotels/${hotelId}/bookings/payment-intent`,
+    {
+      credentials: "include",
+      body: JSON.stringify({ numberOfDays }),
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error("An error occurred while creating payment intent");
+  }
+
+  return res.json();
+};
+
+/**
+ * Creates a new booking for a given hotel.
+ * @param {BookingFormData} data - Required fields: hotelId, paymentIntentId, userId, numberOfDays, checkIn, checkOut
+ * @returns {Promise<BookingType>} A JSON response containing the newly created booking
+ * @throws {Error} An error occurred while creating booking
+ */
+export const createBooking = async (data: BookingFormData) => {
+  console.log(data);
+
+  const res = await fetch(
+    `${API_BASE_URL}/api/hotels/${data.hotelId}/bookings`,
+    {
+      credentials: "include",
+      body: JSON.stringify(data),
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error("An error occurred while creating booking");
+  }
+
+  return res.json();
+};
+
+export const fetchMyBookings = async ():Promise<HotelType[]> => {
+  const res = await fetch(`${API_BASE_URL}/api/my-bookings/`, {
+    credentials: "include",
+  });
+
+  if (!res.ok) {
+    throw new Error("An error occurred while fetching bookings");
+  }
+
+  return res.json();
+};
+export const fetchHotels = async (): Promise<HotelType[]> => {
+  const response = await fetch(`${API_BASE_URL}/api/hotels`, {
+    credentials: "include",
+  });
+  if (!response.ok) {
+    throw new Error("Error fetching hotels");
+  }
   return response.json();
 };

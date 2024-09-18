@@ -21,9 +21,10 @@ const SignOutButton = () => {
                     mutate.mutate()
                 }
             }
-            className="hover:bg-gray-200 px-5 rounded bg-white font-bold flex items-center text-blue-600">
+            className="hover:bg-gray-200 px-3 rounded bg-white font-bold text-sm md:text-base flex items-center text-blue-800 whitespace-nowrap">
             Sign Out
         </button>
     )
 }
 export default SignOutButton
+

@@ -13,7 +13,7 @@ const Layout = ({ children }: props) => {
         <div className="flex flex-col min-h-screen ">
             <Header />
             <Hero />
-            <SearchBar />
+            {(window.location.pathname === "/" || window.location.pathname === "/search") && <SearchBar />}
             <div className="container mx-auto py-10  px-6 flex-1">
                 {children}
             </div>
